@@ -1,7 +1,7 @@
 <?php
 namespace app\src\Rules;
 
-abstract class Rule
+abstract class AbstractRule
 {
     /**
      * @param $input

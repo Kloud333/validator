@@ -1,7 +1,7 @@
 <?php
 namespace app\src\Rules;
 
-class IsNumeric extends Rule
+class IsNumeric extends AbstractRule
 {
     /**
      * @param $input
