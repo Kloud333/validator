@@ -30,13 +30,11 @@ class ValidatorTest extends Base
             ]
         ];
 
-//        $validator = new Validator($rules);
-//
-//        var_dump($validator->validate($request));
-//
-//        if ($validator->validate($request)) {
-//            echo 'Yuhuuu';
-//        }
+        $validator = new Validator($rules);
+
+        if ($validator->validate($request)) {
+            echo 'Yuhuuu';
+        }
     }
 
 
