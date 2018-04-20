@@ -3,6 +3,7 @@
 namespace app\src;
 
 
+use app\src\Rules\AbstractRule;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Validator
@@ -41,8 +42,12 @@ class Validator
     public function __construct($rules)
     {
         foreach ($rules as $key => $rule) {
-            // instanseof abstract rule перевіряємо чи рул є наслідником загального класу
-            $this->rules[$key] = $rule;
+            var_dump($rule);
+
+            if (is_subclass_of($rule, AbstractRule::class)) {
+                $this->rules[$key] = $rule;
+                var_dump('yesss');
+            }
         }
     }
 

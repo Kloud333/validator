@@ -2,6 +2,7 @@
 
 namespace tests\Unit;
 
+use app\src\Rules\AbstractRule;
 use app\src\Rules\NotEmpty;
 use app\src\Rules\StringType;
 use app\src\Validator;
@@ -20,7 +21,7 @@ class ValidatorTest extends Base
     public function testArray()
     {
         $request = [
-            'name' => 123,
+            'name' => 'adad',
         ];
 
         $rules = [
@@ -29,6 +30,8 @@ class ValidatorTest extends Base
                 new StringType(),
             ]
         ];
+
+        var_dump(is_subclass_of(new NotEmpty(), AbstractRule::class));
 
         $validator = new Validator($rules);
 
