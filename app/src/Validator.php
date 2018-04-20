@@ -29,16 +29,21 @@ class Validator
 //    {
 //        return $this->rule->validate($data);
 //    }
-//
+
+//Також реаізувати метод, який буде перевіряти чи це масив чи це обєкт і передавти його на етап вибору і застосування рулів
+//Замість перебору масиву з даними зробит перебір по масиву з рулами
+//var_dump($propertyAccessor->getValue($data, $rules['name'])); // - і до нього застосовуємо Rule
+//Тако відловлювати ексепшини рулів і поміщати їх в масив а потім видавати його методом - errors
+//Самі ексепшини реалзувати в рулах
+
     public $rules = [];
 
     public function __construct($rules)
     {
-
         foreach ($rules as $key => $rule) {
+            // instanseof abstract rule перевіряємо чи рул є наслідником загального класу
             $this->rules[$key] = $rule;
         }
-
     }
 
     public function validate($data)
