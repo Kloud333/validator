@@ -2,39 +2,15 @@
 
 namespace app\src;
 
-
-use app\src\Rules\AbstractRule;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Validator
 {
-//    public $rule;
-//
-//    /**
-//     * @param $name
-//     * @return $this
-//     */
-//    public function getRule($name)
-//    {
-//        $a = 'app\src\Rules\\'.$name;
-//        $this->rule = new $a;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @param $data
-//     * @return mixed
-//     */
-//    public function validate($data)
-//    {
-//        return $this->rule->validate($data);
-//    }
 
 //Також реаізувати метод, який буде перевіряти чи це масив чи це обєкт і передавти його на етап вибору і застосування рулів
 //Замість перебору масиву з даними зробит перебір по масиву з рулами
 //var_dump($propertyAccessor->getValue($data, $rules['name'])); // - і до нього застосовуємо Rule
-//Тако відловлювати ексепшини рулів і поміщати їх в масив а потім видавати його методом - errors
+//Також відловлювати ексепшини рулів і поміщати їх в масив а потім видавати його методом - errors
 //Самі ексепшини реалзувати в рулах
 
     public $rules = [];
@@ -42,35 +18,70 @@ class Validator
     public function __construct($rules)
     {
         foreach ($rules as $key => $rule) {
-            var_dump($rule);
+            $this->rules[$key] = $rule;
+        }
+    }
 
-            if (is_subclass_of($rule, AbstractRule::class)) {
-                $this->rules[$key] = $rule;
-                var_dump('yesss');
+    public function check($data)
+    {
+        if (gettype($data) == 'array') {
+            return $this->validateArray($data);
+        }
+
+        if (gettype($data) == 'object') {
+            return $this->validateObj($data);
+        }
+    }
+
+    public function validateArray($data)
+    {
+        $result = [];
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+
+        foreach ($this->rules as $key => $values) {
+
+            $data1 = $propertyAccessor->getValue($data, '[' . $key . ']');
+
+            foreach ($values as $value) {
+                $result[] = $value->validate($data1);
             }
+        }
+        return $result;
+    }
+
+    public function validateObj($data)
+    {
+        $result = [];
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+
+        foreach ($this->rules as $key => $values) {
+
+            $data1 = $propertyAccessor->getValue($data, $key);
+
+            foreach ($values as $value) {
+                $result[] = $value->validate($data1);
+            }
+        }
+
+        return $result;
+    }
+
+    public function checkResult($results)
+    {
+        if (count(array_unique($results)) === 1) {
+            return current($results);
+        } else {
+            return false;
         }
     }
 
     public function validate($data)
     {
+        $dataRules = $this->check($data);
 
-        $result = true;
-
-        foreach ($data as $key => $value) {
-
-            if ($this->rules[$key]) {
-                foreach ($this->rules[$key] as $rule) {
-                    $result = $rule->validate($value);
-                }
-            }
-
-            if ($result == false) {
-                return false;
-            }
-        }
+        $result = $this->checkResult($dataRules);
 
         return $result;
-
     }
 
     public function errors()
