@@ -1,11 +1,12 @@
 <?php
+
 namespace app\src\Rules;
 
 abstract class AbstractRule
 {
     /**
      * @param $input
-     * @return mixed
+     * @return bool
      */
     public abstract function validate($input);
 
