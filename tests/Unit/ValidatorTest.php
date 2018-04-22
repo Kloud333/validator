@@ -2,43 +2,72 @@
 
 namespace tests\Unit;
 
-use app\src\Rules\AbstractRule;
-use app\src\Rules\NotEmpty;
-use app\src\Rules\StringType;
+use app\src\Rules;
 use app\src\Validator;
+use tests\TestData\TestObject;
 
 
 class ValidatorTest extends Base
 {
-//    public function testValidation()
-//    {
-//        $v = new Validator();
-//        $a = $v->getRule('IsNumeric')->validate('aaa');
-//
-//        var_dump($a);
-//    }
 
-    public function testArray()
+    /**
+     * @return array
+     */
+    public function dataProvider()
     {
-        $request = [
-            'name' => 'adad',
-        ];
 
+        $obj = new TestObject();
+        $obj->name = 'igor';
+        $obj->birth_date = '1984-08-11';
+        $obj->email = 'Maksym_Odanets@epam.com';
+        $obj->password = '1Az111';
+
+        return [
+            [
+                [
+                    'name' => 'igor',
+                    'birth_date' => '1984-08-11',
+                    'email' => 'Maksym_Odanets@epam.com',
+                    'password' => '1Az111'
+                ]
+            ],
+            [
+                $obj
+            ]
+        ];
+    }
+
+    /**
+     * @dataProvider dataProvider
+     * @param $data
+     */
+    public function testArray($data)
+    {
         $rules = [
             'name' => [
-                new NotEmpty(),
-                new StringType(),
+                new Rules\NotEmpty(),
+                new Rules\StringType(),
+            ],
+            'birth_date' => [
+                new Rules\Date('Y-m-d'),
+                new Rules\Age(18)
+            ],
+            'email' => [
+                new Rules\NotEmpty(),
+                new Rules\Email(),
+            ],
+            'password' => [
+                new Rules\NotEmpty(),
+                new Rules\StringType(),
+                new Rules\Password()
             ]
         ];
 
-        var_dump(is_subclass_of(new NotEmpty(), AbstractRule::class));
-
         $validator = new Validator($rules);
 
-        if ($validator->validate($request)) {
-            echo 'Yuhuuu';
-        }
-    }
+        var_dump($validator->validate($data));
 
+        $this->assertEquals(true, $validator->validate($data));
+    }
 
 }
