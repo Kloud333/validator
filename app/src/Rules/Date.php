@@ -18,12 +18,12 @@ class Date extends AbstractRule
     }
 
     /**
-     * @param $input
+     * @param $data
      * @return bool
      */
-    public function validate($input)
+    public function validate($data)
     {
-        $date = DateTime::createFromFormat($this->format, $input);
-        return $date && $date->format($this->format) == $input;
+        $date = DateTime::createFromFormat($this->format, $data);
+        return $date && $date->format($this->format) == $data;
     }
 }

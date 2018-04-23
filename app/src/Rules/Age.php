@@ -18,12 +18,12 @@ class Age extends AbstractRule
     }
 
     /**
-     * @param $input
+     * @param $data
      * @return bool
      */
-    public function validate($input)
+    public function validate($data)
     {
-        $date = new DateTime($input);
+        $date = new DateTime($data);
         $now = new DateTime;
         $diff = $now->diff($date);
         return ($diff->y > $this->age);

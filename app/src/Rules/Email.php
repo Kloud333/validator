@@ -8,12 +8,12 @@ use Egulias\EmailValidator\Validation\RFCValidation;
 class Email extends AbstractRule
 {
     /**
-     * @param $input
+     * @param $data
      * @return bool
      */
-    public function validate($input)
+    public function validate($data)
     {
         $validator = new EmailValidator();
-        return $validator->isValid($input, new RFCValidation());
+        return $validator->isValid($data, new RFCValidation());
     }
 }

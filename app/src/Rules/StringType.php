@@ -5,11 +5,11 @@ namespace app\src\Rules;
 class StringType extends AbstractRule
 {
     /**
-     * @param $input
+     * @param $data
      * @return bool
      */
-    public function validate($input)
+    public function validate($data)
     {
-        return is_string($input);
+        return is_string($data);
     }
 }
