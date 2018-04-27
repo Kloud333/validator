@@ -6,7 +6,7 @@ class NotEmpty extends AbstractRule
 {
     /**
      * @param $input
-     * @return bool
+     * @return object|boolean
      */
     public function validate($input)
     {
@@ -14,6 +14,6 @@ class NotEmpty extends AbstractRule
             $input = trim($input);
         }
 
-        return !empty($input);
+        return !empty($input) ?: $this->createException();
     }
 }

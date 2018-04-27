@@ -9,11 +9,11 @@ class Email extends AbstractRule
 {
     /**
      * @param $data
-     * @return bool
+     * @return object|boolean
      */
     public function validate($data)
     {
         $validator = new EmailValidator();
-        return $validator->isValid($data, new RFCValidation());
+        return $validator->isValid($data, new RFCValidation()) ?: $this->createException();
     }
 }

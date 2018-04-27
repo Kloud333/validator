@@ -19,11 +19,11 @@ class Date extends AbstractRule
 
     /**
      * @param $data
-     * @return bool
+     * @return object|boolean
      */
     public function validate($data)
     {
         $date = DateTime::createFromFormat($this->format, $data);
-        return $date && $date->format($this->format) == $data;
+        return $date && $date->format($this->format) == $data ?: $this->createException();
     }
 }
