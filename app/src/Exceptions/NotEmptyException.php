@@ -2,7 +2,7 @@
 
 namespace app\src\Exceptions;
 
-class NotEmptyException extends ValidationException
+class NotEmptyException
 {
-
+    public $message = 'Field is empty!';
 }

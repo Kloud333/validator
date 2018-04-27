@@ -2,7 +2,7 @@
 
 namespace app\src\Exceptions;
 
-class StringTypeException extends ValidationException
+class StringTypeException
 {
-
+    public $message = 'Data is not string type';
 }

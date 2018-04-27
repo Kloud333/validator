@@ -2,7 +2,12 @@
 
 namespace app\src\Exceptions;
 
-class PasswordException extends ValidationException
+class PasswordException
 {
+    public $message;
 
+    public function __construct($message)
+    {
+        $this->message = $message;
+    }
 }

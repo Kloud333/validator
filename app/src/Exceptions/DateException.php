@@ -2,7 +2,8 @@
 
 namespace app\src\Exceptions;
 
-class DateException extends ValidationException
+class DateException
 {
+    public $message = 'Date format is incorrect!';
 
 }

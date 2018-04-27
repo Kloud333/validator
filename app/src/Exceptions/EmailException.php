@@ -2,7 +2,7 @@
 
 namespace app\src\Exceptions;
 
-class EmailException extends ValidationException
+class EmailException
 {
-
+    public $message = 'Your email is incorrect';
 }
