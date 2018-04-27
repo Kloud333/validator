@@ -55,7 +55,7 @@ class ValidatorTest extends Base
                     'name' => '',
                     'birth_date' => '1984-08-11',
                     'email' => 'Maksym_Odanets@epam.com',
-                    'password' => '1Az111'
+                    'password' => '11'
                 ]
             ],
             [
@@ -126,6 +126,7 @@ class ValidatorTest extends Base
         $validator = new Validator($rules);
 
         $this->assertEquals(false, $validator->validate($data));
+
     }
 
 }
