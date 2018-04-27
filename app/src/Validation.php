@@ -6,7 +6,7 @@ abstract class Validation
 {
     /**
      * @param $rules
-     * @return mixed
+     * @return array
      */
     public function getRules($rules)
     {
@@ -24,6 +24,20 @@ abstract class Validation
      */
     public abstract function validation($data, $rues);
 
+    public function check($enterData)
+    {
+        $result = [];
+
+        foreach ($enterData as $data) {
+            if (is_object($data)) {
+                $result[] = $data->message;
+            }
+        }
+
+        return $result;
+    }
+
+
     /**
      * @param $data
      * @param $rules
@@ -35,8 +49,9 @@ abstract class Validation
 
         $validData = $this->validation($data, $dataRules);
 
-        return $validData;
-    }
+        $finalData = $this->check($validData);
 
+        return $finalData;
+    }
 
 }

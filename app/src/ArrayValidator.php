@@ -20,7 +20,7 @@ class ArrayValidator extends Validation
             $data = $propertyAccessor->getValue($allData, '[' . $key . ']');
 
             foreach ($rules as $rule) {
-                $result[] = $rule->validation($data);
+                $result[] = $rule->validate($data);
             }
         }
 
