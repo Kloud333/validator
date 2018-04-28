@@ -4,6 +4,8 @@ namespace app\src\Exceptions;
 
 class DateException
 {
-    public $message = 'Date format is incorrect!';
-
+    /**
+     * @var string
+     */
+    public $errorMessage = 'Date format is incorrect!';
 }

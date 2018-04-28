@@ -4,10 +4,17 @@ namespace app\src\Exceptions;
 
 class PasswordException
 {
-    public $message;
+    /**
+     * @var string
+     */
+    public $errorMessage;
 
-    public function __construct($message)
+    /**
+     * PasswordException constructor.
+     * @param $errorMessage
+     */
+    public function __construct($errorMessage)
     {
-        $this->message = $message;
+        $this->errorMessage = $errorMessage;
     }
 }

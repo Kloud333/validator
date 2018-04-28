@@ -4,5 +4,8 @@ namespace app\src\Exceptions;
 
 class StringTypeException
 {
-    public $message = 'Data is not string type';
+    /**
+     * @var string
+     */
+    public $errorMessage = 'Data is not string type';
 }

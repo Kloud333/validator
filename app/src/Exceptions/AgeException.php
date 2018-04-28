@@ -4,10 +4,17 @@ namespace app\src\Exceptions;
 
 class AgeException
 {
-    public $message;
+    /**
+     * @var string
+     */
+    public $errorMessage;
 
-    public function __construct($message)
+    /**
+     * AgeException constructor.
+     * @param $errorMessage
+     */
+    public function __construct($errorMessage)
     {
-        $this->message = 'Your age is less than. . . .' . $message;
+        $this->errorMessage = 'Your age is less than. . . .' . $errorMessage;
     }
 }

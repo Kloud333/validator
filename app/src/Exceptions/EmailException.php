@@ -4,5 +4,8 @@ namespace app\src\Exceptions;
 
 class EmailException
 {
-    public $message = 'Your email is incorrect';
+    /**
+     * @var string
+     */
+    public $errorMessage = 'Your email is incorrect';
 }
