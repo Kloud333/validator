@@ -4,10 +4,15 @@ namespace app\src;
 
 class Validator
 {
-
+    /**
+     * @var array
+     */
     public $rules = [];
-    public $errors = [];
 
+    /**
+     * @var array
+     */
+    public $errors = [];
 
     /**
      * Validator constructor.
@@ -50,14 +55,14 @@ class Validator
             $validator = new ObjectValidator();
         }
 
-        return $this->check($validator->validate($data, $this->rules));
+        return $this->checkResults($validator->validate($data, $this->rules));
     }
 
     /**
      * @param $results
      * @return bool
      */
-    public function check($results)
+    public function checkResults($results)
     {
         if (count($results) != 0) {
             $this->errors = $results;

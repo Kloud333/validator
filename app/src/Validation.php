@@ -5,32 +5,38 @@ namespace app\src;
 abstract class Validation
 {
     /**
-     * @param $rules
+     * @param $allData
+     * @param $key
      * @return array
      */
-    public function getRules($rules)
-    {
-        foreach ($rules as $key => $rule) {
-            $rules[$key] = $rule;
-        }
-
-        return $rules;
-    }
+    public abstract function getData($allData, $key);
 
     /**
-     * @param $data
-     * @param $rues
+     * @param $allData
+     * @param $allRules
      * @return array
      */
-    public abstract function validation($data, $rues);
+    public function validateData($allData, $allRules)
+    {
+        foreach ($allRules as $key => $rules) {
 
-    public function check($enterData)
+            $data = $this->getData($allData, $key);
+
+            foreach ($rules as $rule) {
+                $result[] = $rule->validate($data);
+            }
+        }
+
+        return $result;
+    }
+
+    public function checkValidationData($enterData)
     {
         $result = [];
 
         foreach ($enterData as $data) {
             if (is_object($data)) {
-                $result[] = $data->message;
+                $result[] = $data->errorMessage;
             }
         }
 
@@ -45,11 +51,9 @@ abstract class Validation
      */
     public function validate($data, $rules)
     {
-        $dataRules = $this->getRules($rules);
+        $validData = $this->validateData($data, $rules);
 
-        $validData = $this->validation($data, $dataRules);
-
-        $finalData = $this->check($validData);
+        $finalData = $this->checkValidationData($validData);
 
         return $finalData;
     }

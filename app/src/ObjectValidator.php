@@ -8,23 +8,11 @@ class ObjectValidator extends Validation
 {
     /**
      * @param $allData
-     * @param $allRules
+     * @param $key
      * @return array
      */
-    public function validation($allData, $allRules)
-    {
+    public function getData($allData, $key){
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
-
-        foreach ($allRules as $key => $rules) {
-
-            $data = $propertyAccessor->getValue($allData, $key);
-
-            foreach ($rules as $rule) {
-                $result[] = $rule->validate($data);
-            }
-        }
-
-        return $result;
+        return $propertyAccessor->getValue($allData, $key);
     }
-
 }
