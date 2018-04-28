@@ -149,6 +149,7 @@ class RulesTest extends Base
     /**
      * @dataProvider goodStringDataProvider
      * @param $data
+     * @covers \app\src\Rules\StringType::validate
      */
     public function testGoodStringData($data)
     {
@@ -160,6 +161,8 @@ class RulesTest extends Base
     /**
      * @dataProvider badStringDataProvider
      * @param $data
+     * @covers \app\src\Rules\StringType::validate
+     * @covers \app\src\Rules\StringType::createException()
      */
     public function testBadStringData($data)
     {
@@ -170,6 +173,8 @@ class RulesTest extends Base
     /**
      * @dataProvider goodAgeDataProvider
      * @param $data
+     * @covers \app\src\Rules\Age::validate
+     * @covers \app\src\Rules\Age::__construct
      */
     public function testGoodAgeData($data)
     {
@@ -181,6 +186,10 @@ class RulesTest extends Base
     /**
      * @dataProvider badAgeDataProvider
      * @param $data
+     * @covers \app\src\Rules\Age::validate
+     * @covers \app\src\Rules\Age::__construct
+     * @covers \app\src\Exceptions\AgeException::__construct
+     * @covers \app\src\Rules\StringType::createException()
      */
     public function testBadAgeData($data)
     {
@@ -191,6 +200,8 @@ class RulesTest extends Base
     /**
      * @dataProvider goodDateDataProvider
      * @param $data
+     * @covers \app\src\Rules\Date::validate
+     * @covers \app\src\Rules\Date::__construct
      */
     public function testGoodDateData($data)
     {
@@ -202,6 +213,9 @@ class RulesTest extends Base
     /**
      * @dataProvider badDateDataProvider
      * @param $data
+     * @covers \app\src\Rules\Date::validate
+     * @covers \app\src\Rules\Date::__construct
+     * @covers \app\src\Rules\StringType::createException()
      */
     public function testBadDateData($data)
     {
@@ -212,6 +226,7 @@ class RulesTest extends Base
     /**
      * @dataProvider goodEmailDataProvider
      * @param $data
+     * @covers \app\src\Rules\Email::validate
      */
     public function testGoodEmailData($data)
     {
@@ -223,6 +238,8 @@ class RulesTest extends Base
     /**
      * @dataProvider badEmailDataProvider
      * @param $data
+     * @covers \app\src\Rules\Email::validate
+     * @covers \app\src\Rules\StringType::createException()
      */
     public function testBadEmailData($data)
     {
@@ -233,6 +250,7 @@ class RulesTest extends Base
     /**
      * @dataProvider goodNotEmptyDataProvider
      * @param $data
+     * @covers \app\src\Rules\NotEmpty::validate
      */
     public function testGoodNotEmptyData($data)
     {
@@ -244,6 +262,8 @@ class RulesTest extends Base
     /**
      * @dataProvider badNotEmptyDataProvider
      * @param $data
+     * @covers \app\src\Rules\NotEmpty::validate
+     * @covers \app\src\Rules\StringType::createException()
      */
     public function testBadNotEmptyData($data)
     {
@@ -254,6 +274,7 @@ class RulesTest extends Base
     /**
      * @dataProvider goodPasswordDataProvider
      * @param $data
+     * @covers \app\src\Rules\Password::validate
      */
     public function testGoodPasswordData($data)
     {
@@ -265,6 +286,9 @@ class RulesTest extends Base
     /**
      * @dataProvider badPasswordDataProvider
      * @param $data
+     * @covers \app\src\Rules\Password::validate
+     * @covers \app\src\Exceptions\PasswordException::__construct
+     * @covers \app\src\Rules\StringType::createException()
      */
     public function testBadPasswordData($data)
     {
