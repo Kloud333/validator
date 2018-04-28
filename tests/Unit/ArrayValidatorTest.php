@@ -3,12 +3,10 @@
 namespace tests\Unit;
 
 use app\src\ArrayValidator;
-use app\src\ObjectValidator;
 use app\src\Rules\NotEmpty;
 use app\src\Rules\StringType;
-use stdClass;
 
-class ObjextAndArrayValidatorsTest extends Base
+class ArrayValidatorTest extends Base
 {
     /**
      * @return array
@@ -27,19 +25,6 @@ class ObjextAndArrayValidatorsTest extends Base
     /**
      * @return array
      */
-    public function goodObjectDataProvider()
-    {
-        $object = new StdClass();
-        $object->name = 'data';
-
-        return [
-            [$object],
-        ];
-    }
-
-    /**
-     * @return array
-     */
     public function badArrayDataProvider()
     {
         return [
@@ -48,21 +33,11 @@ class ObjextAndArrayValidatorsTest extends Base
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function badObjectDataProvider()
-    {
-        $object = new StdClass();
-
-        return [
-            [$object],
-        ];
-    }
 
     /**
      * @dataProvider goodArrayDataProvider
      * @param $data
+     * @covers \app\src\ArrayValidator::getData()
      */
     public function testGoodArrayValidatorData($data)
     {
@@ -73,6 +48,7 @@ class ObjextAndArrayValidatorsTest extends Base
     /**
      * @dataProvider badArrayDataProvider
      * @param $data
+     * @covers \app\src\ArrayValidator::getData()
      * @expectedException \Exception
      */
     public function testBadArrayValidatorData($data)
@@ -82,29 +58,9 @@ class ObjextAndArrayValidatorsTest extends Base
     }
 
     /**
-     * @dataProvider goodObjectDataProvider
-     * @param $data
-     */
-    public function testGoodObjectValidatorData($data)
-    {
-        $arrayValidator = new ObjectValidator();
-        $this->assertEquals('data', $arrayValidator->getData($data, 'name'));
-    }
-
-    /**
-     * @dataProvider badObjectDataProvider
-     * @param $data
-     * @expectedException \Exception
-     */
-    public function testBadObjectValidatorData($data)
-    {
-        $arrayValidator = new ObjectValidator();
-        $arrayValidator->getData($data, 'name');
-    }
-
-    /**
      * @dataProvider goodArrayDataProvider
      * @param $data
+     * @covers \app\src\ArrayValidator::validate()
      */
     public function testGoodArrayValidatorValidateData($data)
     {
@@ -120,10 +76,12 @@ class ObjextAndArrayValidatorsTest extends Base
     }
 
     /**
-     * @dataProvider goodObjectDataProvider
+     * @dataProvider badArrayDataProvider
      * @param $data
+     * @covers \app\src\ArrayValidator::validate()
+     * @expectedException \Exception
      */
-    public function testGoodObjectValidatorValidateData($data)
+    public function testBadArrayValidatorValidateData($data)
     {
         $rules = [
             'name' => [
@@ -132,8 +90,7 @@ class ObjextAndArrayValidatorsTest extends Base
             ]
         ];
 
-        $arrayValidator = new ObjectValidator();
+        $arrayValidator = new ArrayValidator();
         $this->assertEquals([], $arrayValidator->validate($data, $rules));
     }
-
 }
